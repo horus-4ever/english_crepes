@@ -46,33 +46,10 @@ export class CartDrawer {
   }
 
   async _sendOrder() {
-    const { items, totalQty } = cartStore.getSnapshot();
+    const { totalQty } = cartStore.getSnapshot();
     if (totalQty === 0 || this._isSubmitting) return;
-
-    // Shape payload to what /submit_order expects
-    const payload = {
-      orders: items.map(it => ({ name: it.name, quantity: it.qty }))
-    };
-
-    // UI: mark submitting (disable buttons, show spinner)
-    this._isSubmitting = true;
-    this.render(); // re-render to reflect disabled state
-
-    // Make the POST
-    this._abortController = new AbortController();
-    try {
-      await postJSON("/submit_order", payload, { signal: this._abortController.signal });
-      cartStore.clear();
-      this._flash("Order sent! 🎉");
-    } catch (err) {
-      console.error(err);
-      const msg = (err && err.detail) ? `${err.message}: ${err.detail}` : "Failed to send the order. Please try again.";
-      this._flash(msg, "danger");
-    } finally {
-      this._isSubmitting = false;
-      this._abortController = null;
-      this.render();
-    }
+    // New flow: take the customer to the quiz page.
+    window.location.assign("/quiz");
   }
 
   _cancelSend() {

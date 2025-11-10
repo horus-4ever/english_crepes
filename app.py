@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, Response, stream_with_context, redirect, url_for
 from services.crepes import get_menu
 from services.order import get_orders, create_new_order
+from services.quiz import create_new_quiz
 import json
 import queue
 import threading
@@ -128,6 +129,12 @@ def orders_mark_sent():
     if request.headers.get("Accept", "").startswith("application/json") or request.is_json:
         return jsonify({"ok": True}), 200
     return redirect(url_for("commands"))
+
+@app.route("/quiz")
+def quiz():
+    quiz = create_new_quiz()
+    quiz_data = {"questions": [q.to_json() for q in quiz.questions]}
+    return render_template("quiz.html", quiz=quiz_data)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000, threaded=True)
