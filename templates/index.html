@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "partials/_macros.html" as ui %}
+
+{% block title %}Crêperie — Menu{% endblock %}
+
+{% block content %}
+  <header class="mb-3 mb-md-4">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <h1 class="h3 mb-1">Our Crêpes</h1>
+        <p class="text-muted mb-0">Tap a crêpe to see details and add it to your cart.</p>
+      </div>
+      <a href="{{ url_for('commands') }}" class="btn btn-outline-secondary d-none d-md-inline-flex">My Orders</a>
+    </div>
+  </header>
+
+  {# Mobile-first responsive grid #}
+  <section aria-label="Crêpe list">
+    <div class="row">
+      {% set items = crepes if crepes is not none else [] %}
+      {% for crepe in items %}
+        {{ ui.crepe_card(crepe, loop.index) }}
+      {% else %}
+        <div class="col-12">
+          <div class="alert alert-info">
+            The menu is being prepared. Please check back soon!
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
+
+{% block overlays %}
+  {# Per-item modals #}
+  {% for crepe in (crepes if crepes is not none else []) %}
+    {{ ui.crepe_modal(crepe, loop.index) }}
+  {% endfor %}
+
+  {# Cart Offcanvas + Floating Button #}
+  {% include "partials/_cart_offcanvas.html" %}
+{% endblock %}

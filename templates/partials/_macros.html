@@ -1,0 +1,105 @@
+{% macro crepe_card(crepe, idx) %}
+  <div class="col-6 col-md-4 col-lg-3 d-flex">
+    <a
+      href="#"
+      class="card w-100 mb-3 shadow-sm text-decoration-none text-reset"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#crepeModal-{{ idx }}"
+      aria-controls="crepeModal-{{ idx }}"
+    >
+      <img
+        src="{{ url_for('static', filename=crepe.image_url) }}"
+        class="card-img-top"
+        alt="{{ crepe.name }} image"
+      />
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <span class="h6 mb-0 text-truncate" title="{{ crepe.name }}">
+            {{ crepe.name }}
+          </span>
+          <span
+            class="cart-qty-badge badge rounded-pill text-bg-success d-none ms-2 flex-shrink-0"
+            data-crepe-name="{{ crepe.name }}"
+            aria-label="{{ crepe.name }} quantity in cart"
+            style="min-width: 1.6rem; height: 1.6rem; display: inline-flex; align-items: center; justify-content: center; font-weight: 600;"
+          >0</span>
+        </div>
+      </div>
+    </a>
+  </div>
+{% endmacro %}
+
+
+
+
+{% macro crepe_modal(crepe, idx) %}
+  <div class="modal fade"
+       id="crepeModal-{{ idx }}"
+       tabindex="-1"
+       aria-labelledby="crepeModalLabel-{{ idx }}"
+       aria-hidden="true"
+       data-crepe-name="{{ crepe.name }}">
+    <div class="modal-dialog modal-dialog-centered modal-sm modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="crepeModalLabel-{{ idx }}">{{ crepe.name }}</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <img
+            src="{{ url_for('static', filename=crepe.image_url) }}"
+            class="img-fluid rounded mb-3"
+            alt="{{ crepe.name }} image"
+          />
+          <p class="mb-0">{{ crepe.description }}</p>
+        </div>
+
+        <div class="modal-footer">
+          <!-- State A: Add button (shown when qty == 0) -->
+          <form method="post" action="#" class="w-100 d-grid" data-role="add-form">
+            <input type="hidden" name="item_name" value="{{ crepe.name }}" />
+            <button type="submit" class="btn btn-success btn-lg w-100 d-inline-flex align-items-center justify-content-center gap-2">
+              <!-- plus-in-cart icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 7.5a.5.5 0 0 0 .5-.5V6h1a.5.5 0 0 0 0-1h-1V4a.5.5 0 0 0-1 0v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 .5.5"/>
+                <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 14H4a.5.5 0 0 1-.491-.408L2.01 5.607 1.61 4H.5a.5.5 0 0 1-.5-.5M3.102 6l1.313 7h8.17l1.313-7zM5 12.5A1.5 1.5 0 1 0 5 15a1.5 1.5 0 0 0 0-2.5m7 0A1.5 1.5 0 1 0 12 15a1.5 1.5 0 0 0 0-2.5"/>
+              </svg>
+              <span class="fw-semibold">Add</span>
+            </button>
+          </form>
+
+          <!-- State B: Quantity controls (shown when qty > 0) -->
+          <div class="w-100 d-none" data-role="qty-controls" aria-live="polite">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="btn-group" role="group" aria-label="Quantity controls">
+                <!-- Bigger “−” -->
+                <button type="button"
+                        class="btn btn-outline-secondary btn-lg px-4"
+                        data-action="dec"
+                        aria-label="Decrease">−</button>
+
+                <!-- Bigger qty readout -->
+                <span class="px-3 fs-4 d-inline-flex align-items-center justify-content-center"
+                      style="min-width:3.25rem"
+                      data-role="qty">1</span>
+
+                <!-- Bigger, GREEN “+” -->
+                <button type="button"
+                        class="btn btn-success btn-lg px-4"
+                        data-action="inc"
+                        aria-label="Increase">+</button>
+              </div>
+
+              <!-- Bigger Remove -->
+              <button type="button" class="btn btn-outline-danger btn-lg" data-action="remove">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}

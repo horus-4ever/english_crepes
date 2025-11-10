@@ -1,0 +1,71 @@
+{# Offcanvas drawer for cart management, toggled by floating round button #}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="cartDrawerLabel">Your Order</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column">
+    {% set has_items = cart and cart.elements and cart.elements|length > 0 %}
+    {% if has_items %}
+      <ul class="list-group mb-3">
+        {% for el in cart.elements %}
+          <li class="list-group-item d-flex align-items-center justify-content-between">
+            <span class="me-2 text-truncate fs-5">{{ el.name }}</span>
+
+            {# Icon-only remove button with generous touch target #}
+            <form method="post" action="#" class="ms-2">
+              <input type="hidden" name="remove_name" value="{{ el.name }}" />
+              <button
+                type="submit"
+                class="btn btn-outline-danger p-2 d-inline-flex align-items-center justify-content-center"
+                aria-label="Remove {{ el.name }}"
+                style="width:2.75rem; height:2.75rem;"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 5h4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0V6H6v6.5a.5.5 0 0 1-1 0z"/>
+                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1 0-2H5l1-1h4l1 1h2.5a1 1 0 0 1 1 1zM4 4v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4z"/>
+                </svg>
+              </button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="text-center text-muted small">
+        <div class="mb-2">Your cart is empty.</div>
+        <div>Add some crêpes to get started!</div>
+      </div>
+    {% endif %}
+
+    <div class="mt-auto d-grid gap-2">
+      <form method="post" action="#">
+        <button type="submit" class="btn btn-outline-secondary w-100 py-3 fs-5" {% if not has_items %}disabled{% endif %}>
+          Clear Cart
+        </button>
+      </form>
+      <form method="post" action="#">
+        <button type="submit" class="btn btn-success w-100 py-3 fs-5" {% if not has_items %}disabled{% endif %}>
+          Send Order
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Floating round cart button (unchanged) -->
+<button
+  class="btn btn-primary floating-cart-btn"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#cartDrawer"
+  aria-controls="cartDrawer"
+  aria-label="Open cart"
+  title="Open cart"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-1v-.5A1.5 1.5 0 0 0 8 2 1.5 1.5 0 0 0 6.5 3.5V4h-1v-.5A2.5 2.5 0 0 1 8 1"/>
+    <path d="M3 4h10l-1 10.5A1.5 1.5 0 0 1 10.5 16h-5A1.5 1.5 0 0 1 4 14.5zM4.12 5l.86 9.4a.5.5 0 0 0 .5.46h5.04a.5.5 0 0 0 .5-.46L11.88 5z"/>
+  </svg>
+</button>
