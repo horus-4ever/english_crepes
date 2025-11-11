@@ -21,21 +21,3 @@ class QuizQuestion:
 @dataclasses.dataclass
 class Quiz:
     questions: list[QuizQuestion]
-
-
-@dataclasses.dataclass
-class QuizGame:
-    quiz: Quiz
-    current_question_index: int = 0
-    score: int = 0
-    completed: bool = False
-
-    def answer_current_question(self, selected_index: int) -> bool:
-        current_question = self.quiz.questions[self.current_question_index]
-        is_correct = current_question.is_correct(selected_index)
-        if is_correct:
-            self.score += 1
-        self.current_question_index += 1
-        if self.current_question_index >= len(self.quiz.questions):
-            self.completed = True
-        return is_correct

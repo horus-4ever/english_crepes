@@ -5,7 +5,7 @@ from random import sample
 def get_questions_bank() -> list[QuizQuestion]:
     return [
         QuizQuestion(
-            question="What is the translation もはや ?",
+            question="What is the translation of もはや ?",
             options=["not again", "not anymore", "soon", "never"],
             correct_option_index=1
         ),
