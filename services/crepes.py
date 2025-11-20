@@ -24,5 +24,10 @@ def get_menu() -> Menu:
             name="Natural Crepe",
             description="A simple natural crepe. Enjoy the pure taste of crepe!",
             image_url="natural_crepe.jpg"
+        ),
+        Crepe(
+            name="Chocolate Crepe",
+            description="A delicious crepe filled with chocolate. Perfect for chocolate lovers!",
+            image_url="chocolate_crepe.jpg"
         )
     ])
