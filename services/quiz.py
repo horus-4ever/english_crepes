@@ -18,6 +18,16 @@ def get_questions_bank() -> list[QuizQuestion]:
             question="If I ... in Harry Potter's world, I would become the greatest wizard of all times !",
             options=["was", "were", "am", "be"],
             correct_option_index=1
+        ),
+        QuizQuestion(
+            question="This is the place ... I lived in Japan",
+            options=["which", "where", "that", "what"],
+            correct_option_index=1
+        ),
+        QuizQuestion(
+            question="The jam, ... was made by my grandmother, is delicious !",
+            options=["which", "who", "that", "whom"],
+            correct_option_index=0
         )
     ]
 

@@ -14,19 +14,9 @@ def get_menu() -> Menu:
             image_url="chocolate_crepe.jpg"
         ),
         Crepe(
-            name="Quince Jam Crepe",
-            description="A crepe filled with homemade quince jam. Unique and tasty!",
-            image_url="quince_jam_crepe.jpg"
-        ),
-        Crepe(
-            name="Caramel Crepe",
-            description="A crepe filled with caramel sauce. For caramel enthusiasts!",
-            image_url="caramel_crepe.jpg"
-        ),
-        Crepe(
-            name="Salted Butter Caramel Crepe",
-            description="A crepe filled with salted butter caramel. A perfect balance of sweet and salty!",
-            image_url="salted_butter_caramel_crepe.jpg"
+            name="カリン Jam Crepe",
+            description="A crepe filled with homemade カリン jam. Unique and tasty!",
+            image_url="karin_jam_crepe.jpg"
         ),
         Crepe(
             name="Natural Crepe",
