@@ -1,5 +1,12 @@
 from models.crepes import Crepe, Menu
 
+"""
+        Crepe(
+            name="Chocolate Crepe",
+            description="A delicious crepe filled with chocolate. Perfect for chocolate lovers!",
+            image_url="chocolate_crepe.jpg"
+        ),
+        """
 
 def get_menu() -> Menu:
     return Menu(crepes=[
@@ -7,11 +14,6 @@ def get_menu() -> Menu:
             name="Sugar Crepe",
             description="A traditional sugar crepe. Perfect for a the 'goûter!'",
             image_url="sugar_crepe.jpg"
-        ),
-        Crepe(
-            name="Chocolate Crepe",
-            description="A delicious crepe filled with chocolate. Perfect for chocolate lovers!",
-            image_url="chocolate_crepe.jpg"
         ),
         Crepe(
             name="カリン Jam Crepe",
